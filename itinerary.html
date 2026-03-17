@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orlando Family Adventure — April 2026</title>
+<style>
+  :root {
+    --teal: #0D7377;
+    --teal-dark: #095457;
+    --teal-light: #E6F4F5;
+    --gold: #C9A84C;
+    --gold-light: #FDF6E3;
+    --gold-dark: #8B6914;
+    --red: #C0392B;
+    --red-light: #FDECEA;
+    --gray: #666;
+    --light-gray: #F5F5F5;
+    --border: #CCCCCC;
+    --text: #1A1A1A;
+    --white: #FFFFFF;
+    --radius: 10px;
+    --shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #F0F4F5; color: var(--text); font-size: 15px; line-height: 1.6; }
+
+  /* ── NAV ── */
+  nav { position: sticky; top: 0; z-index: 100; background: var(--teal-dark); color: white; }
+  .nav-inner { max-width: 960px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; height: 54px; }
+  .nav-brand { font-size: 15px; font-weight: 700; color: white; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+  .nav-brand span { color: var(--gold); }
+  .nav-links { display: flex; gap: 4px; }
+  .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 13px; padding: 6px 10px; border-radius: 6px; transition: background 0.2s; }
+  .nav-links a:hover { background: rgba(255,255,255,0.15); color: white; }
+  .hamburger { display: none; background: none; border: none; color: white; cursor: pointer; padding: 8px; }
+  .hamburger svg { width: 22px; height: 22px; }
+  .mobile-menu { display: none; background: var(--teal-dark); padding: 8px 16px 16px; flex-direction: column; gap: 4px; }
+  .mobile-menu a { color: rgba(255,255,255,0.9); text-decoration: none; padding: 10px 12px; border-radius: 6px; font-size: 15px; }
+  .mobile-menu a:hover { background: rgba(255,255,255,0.1); }
+  .mobile-menu.open { display: flex; }
+  @media (max-width: 700px) {
+    .nav-links { display: none; }
+    .hamburger { display: block; }
+  }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 960px; margin: 0 auto; padding: 0 16px 40px; }
+
+  /* ── HERO ── */
+  .hero { background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 60%, #063335 100%); color: white; padding: 40px 16px; text-align: center; }
+  .hero-inner { max-width: 960px; margin: 0 auto; }
+  .hero h1 { font-size: clamp(24px, 6vw, 44px); font-weight: 800; letter-spacing: -0.5px; line-height: 1.1; margin-bottom: 8px; }
+  .hero-dates { font-size: clamp(18px, 4vw, 26px); color: var(--gold); font-weight: 700; margin-bottom: 12px; }
+  .hero-sub { font-size: clamp(13px, 3vw, 16px); color: rgba(255,255,255,0.8); margin-bottom: 20px; }
+  .hero-hotels { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 16px; }
+  .hotel-badge { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); padding: 6px 14px; border-radius: 20px; font-size: 13px; color: white; }
+  .arrow { color: var(--gold); margin: 0 4px; }
+
+  /* ── ALERT ── */
+  .alert { background: var(--red-light); border-left: 5px solid var(--red); padding: 14px 16px; border-radius: 0 var(--radius) var(--radius) 0; margin: 20px 0; }
+  .alert-title { font-weight: 700; color: var(--red); font-size: 14px; margin-bottom: 4px; }
+  .alert p { color: #8B1A10; font-size: 14px; }
+  .tip-box { background: var(--gold-light); border-left: 5px solid var(--gold); padding: 14px 16px; border-radius: 0 var(--radius) var(--radius) 0; margin: 16px 0; }
+  .tip-box strong { color: var(--gold-dark); }
+  .tip-box p, .tip-box { font-size: 14px; color: var(--text); }
+  .teal-box { background: var(--teal-light); border-left: 5px solid var(--teal); padding: 14px 16px; border-radius: 0 var(--radius) var(--radius) 0; margin: 16px 0; }
+  .teal-box { font-size: 14px; color: var(--text); }
+  .teal-box strong { color: var(--teal); }
+
+  /* ── SECTION ── */
+  .section { margin-top: 28px; }
+  .section-header { background: var(--teal); color: white; padding: 12px 18px; border-radius: var(--radius) var(--radius) 0 0; display: flex; align-items: center; gap: 10px; }
+  .section-header h2 { font-size: clamp(14px, 3.5vw, 18px); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; }
+  .section-body { background: white; border-radius: 0 0 var(--radius) var(--radius); box-shadow: var(--shadow); padding: 20px; }
+
+  /* ── OVERVIEW CARDS ── */
+  .overview-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 4px; }
+  .overview-card { background: var(--teal-light); border-radius: 8px; padding: 14px; }
+  .overview-card .label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--teal); margin-bottom: 4px; }
+  .overview-card .value { font-size: 14px; color: var(--text); font-weight: 500; }
+
+  /* ── CROWD TABLE ── */
+  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 480px; }
+  th { background: var(--teal); color: white; padding: 9px 10px; text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: 0.3px; }
+  td { padding: 9px 10px; border-bottom: 1px solid #EEE; vertical-align: top; }
+  tr:nth-child(even) td { background: #F9FDFD; }
+  tr:last-child td { border-bottom: none; }
+  .crowd-score { font-weight: 700; }
+  .crowd-red { color: var(--red); }
+  .crowd-orange { color: #E67E22; }
+  .crowd-green { color: #27AE60; }
+
+  /* ── WEATHER GRID ── */
+  .weather-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-top: 12px; }
+  .weather-card { background: var(--teal-light); border-radius: 8px; padding: 12px; text-align: center; }
+  .weather-card .w-label { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--teal); margin-bottom: 6px; }
+  .weather-card .w-main { font-size: 22px; font-weight: 800; color: var(--teal-dark); }
+  .weather-card .w-sub { font-size: 12px; color: var(--gray); margin-top: 2px; }
+  .weather-detail { margin-top: 16px; }
+  .weather-row { display: flex; gap: 10px; padding: 9px 0; border-bottom: 1px solid #EEE; flex-wrap: wrap; font-size: 14px; }
+  .weather-row:last-child { border-bottom: none; }
+  .weather-row .wr-label { font-weight: 700; color: var(--teal); min-width: 90px; flex-shrink: 0; }
+  .weather-row .wr-val { color: var(--text); }
+  .weather-row .wr-times { display: flex; gap: 8px; flex-wrap: wrap; margin-left: auto; }
+  .time-chip { background: var(--light-gray); border-radius: 12px; padding: 2px 10px; font-size: 12px; color: var(--gray); }
+
+  /* ── PARK HOURS ── */
+  .park-hours-row { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid #EEE; flex-wrap: wrap; }
+  .park-hours-row:last-child { border-bottom: none; }
+  .ph-date { font-weight: 700; color: var(--teal); min-width: 100px; font-size: 13px; flex-shrink: 0; }
+  .ph-park { font-size: 14px; font-weight: 600; flex: 1; min-width: 140px; }
+  .ph-hours { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+  .ph-open { background: #E8F5E9; color: #2E7D32; padding: 2px 8px; border-radius: 10px; font-size: 12px; font-weight: 700; }
+  .ph-close { background: #FFF3E0; color: #E65100; padding: 2px 8px; border-radius: 10px; font-size: 12px; font-weight: 700; }
+  .ph-early { background: var(--teal-light); color: var(--teal); padding: 2px 8px; border-radius: 10px; font-size: 11px; }
+  .ph-note { font-size: 12px; color: var(--gray); width: 100%; padding-left: 110px; }
+  @media (max-width: 500px) { .ph-note { padding-left: 0; } }
+
+  /* ── DAYS ACCORDION ── */
+  .day-item { margin-bottom: 10px; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+  .day-header { display: flex; align-items: center; gap: 0; cursor: pointer; background: white; border: none; width: 100%; text-align: left; padding: 0; }
+  .day-date-badge { background: var(--gold); color: white; padding: 14px 16px; font-weight: 800; font-size: 14px; min-width: 88px; flex-shrink: 0; line-height: 1.2; }
+  .day-weekday { background: #B8883A; color: white; padding: 14px 10px; font-size: 12px; min-width: 68px; flex-shrink: 0; }
+  .day-title { flex: 1; padding: 14px 14px; font-size: 15px; font-weight: 700; color: var(--text); background: var(--gold-light); }
+  .day-chevron { padding: 14px 14px; background: var(--gold-light); color: var(--gold-dark); font-size: 18px; transition: transform 0.25s; flex-shrink: 0; }
+  .day-header[aria-expanded="true"] .day-chevron { transform: rotate(180deg); }
+  .day-hotel-bar { background: #1A6B8A; color: white; font-size: 12px; padding: 5px 14px; font-style: italic; }
+  .day-hotel-bar.fs { background: #5D4037; }
+  .day-body { display: none; background: white; }
+  .day-body.open { display: block; }
+  .strategy-note { background: var(--teal-light); border-left: 4px solid var(--teal); padding: 10px 14px; font-size: 13px; color: var(--text); }
+  .strategy-note strong { color: var(--teal); }
+
+  /* ── SCHEDULE TABLE ── */
+  .schedule { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .schedule-head th { background: var(--teal-light); color: var(--teal); padding: 7px 10px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.3px; }
+  .schedule td { padding: 9px 10px; border-bottom: 1px solid #F0F0F0; vertical-align: top; }
+  .schedule tr:last-child td { border-bottom: none; }
+  .schedule tr.highlight td { background: var(--gold-light); }
+  .schedule .s-time { font-weight: 700; color: var(--teal); white-space: nowrap; font-size: 12px; }
+  .schedule .s-note { color: var(--gray); font-size: 12px; font-style: italic; }
+  @media (max-width: 550px) {
+    .schedule-head .s-note-head { display: none; }
+    .schedule .s-note { display: none; }
+    .schedule td:first-child { width: 80px; }
+  }
+
+  /* ── HALAL TABLE ── */
+  .halal-table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 480px; }
+  .halal-table th { background: var(--teal); color: white; padding: 9px 10px; font-size: 12px; text-align: left; }
+  .halal-table td { padding: 9px 10px; border-bottom: 1px solid #EEE; vertical-align: top; }
+  .halal-table tr:nth-child(even) td { background: #F7FDFD; }
+  .halal-table tr:last-child td { border-bottom: none; }
+  .halal-best { background: #E8F5E9 !important; }
+  .halal-best td { border-left: 3px solid #27AE60; }
+  .best-badge { display: inline-block; background: #27AE60; color: white; font-size: 10px; padding: 1px 6px; border-radius: 8px; font-weight: 700; margin-left: 4px; vertical-align: middle; }
+
+  /* ── PACKING LIST ── */
+  .pack-section { margin-bottom: 20px; }
+  .pack-section h3 { font-size: 15px; font-weight: 700; color: var(--teal); margin-bottom: 10px; padding-bottom: 5px; border-bottom: 2px solid var(--teal-light); }
+  .pack-items { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 6px; }
+  .pack-item { display: flex; align-items: flex-start; gap: 8px; padding: 8px 10px; background: var(--light-gray); border-radius: 6px; font-size: 13px; }
+  .pack-item::before { content: "✓"; color: var(--teal); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+  /* ── CONTACTS ── */
+  .contacts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+  .contact-card { background: var(--teal-light); border-radius: 8px; padding: 14px; }
+  .contact-card .c-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--teal); margin-bottom: 4px; }
+  .contact-card .c-val { font-size: 14px; color: var(--text); font-weight: 600; }
+  .contact-card .c-note { font-size: 12px; color: var(--gray); margin-top: 3px; }
+
+  /* ── TEA TIME SPECIAL CALLOUT ── */
+  .tea-callout { background: linear-gradient(135deg, #FDF6E3 0%, #FFF8F0 100%); border: 2px solid var(--gold); border-radius: var(--radius); padding: 16px; margin: 16px 0; }
+  .tea-callout h3 { color: var(--gold-dark); font-size: 16px; margin-bottom: 6px; }
+  .tea-callout p { font-size: 13px; color: var(--text); margin-bottom: 8px; }
+  .tea-callout .tea-urgent { color: var(--red); font-weight: 700; font-size: 13px; }
+  .tea-details { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .tea-chip { background: var(--gold); color: white; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 700; }
+
+  /* ── BULLET LISTS ── */
+  .bullet-list { list-style: none; padding: 0; }
+  .bullet-list li { display: flex; align-items: flex-start; gap: 8px; padding: 6px 0; border-bottom: 1px solid #F0F0F0; font-size: 14px; }
+  .bullet-list li:last-child { border-bottom: none; }
+  .bullet-list li::before { content: "•"; color: var(--teal); font-size: 18px; line-height: 1.3; flex-shrink: 0; }
+
+  /* ── FOOTER ── */
+  footer { background: var(--teal-dark); color: rgba(255,255,255,0.7); text-align: center; padding: 24px 16px; font-size: 13px; margin-top: 40px; }
+  footer strong { color: var(--gold); }
+
+  /* ── UTILITIES ── */
+  .mt8 { margin-top: 8px; }
+  .mt16 { margin-top: 16px; }
+  .relax-day .day-date-badge { background: var(--teal); }
+  .relax-day .day-weekday { background: #0A5558; }
+  .relax-day .day-title { background: var(--teal-light); color: var(--teal-dark); }
+  .relax-day .day-chevron { background: var(--teal-light); color: var(--teal); }
+  .day-note-open { background: var(--teal-light); border-radius: 6px; padding: 10px 14px; font-size: 13px; color: var(--teal-dark); font-style: italic; margin: 10px 14px 0; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-brand" href="#top">🏰 <span>Orlando</span> April 2026</a>
+    <div class="nav-links">
+      <a href="#overview">Overview</a>
+      <a href="#crowds">Crowds</a>
+      <a href="#weather">Weather</a>
+      <a href="#days">Itinerary</a>
+      <a href="#halal">Halal Food</a>
+      <a href="#packing">Packing</a>
+      <a href="#contacts">Contacts</a>
+    </div>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#overview" onclick="closeMenu()">📋 Overview</a>
+    <a href="#crowds" onclick="closeMenu()">👥 Crowd Calendar</a>
+    <a href="#weather" onclick="closeMenu()">🌤 Weather</a>
+    <a href="#days" onclick="closeMenu()">📅 Day-by-Day</a>
+    <a href="#halal" onclick="closeMenu()">🥙 Halal Food Guide</a>
+    <a href="#packing" onclick="closeMenu()">🧳 Packing List</a>
+    <a href="#contacts" onclick="closeMenu()">📞 Key Contacts</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="top">
+  <div class="hero-inner">
+    <h1>Orlando Family Adventure</h1>
+    <div class="hero-dates">April 1 – 10, 2026</div>
+    <div class="hero-sub">Walt Disney World &nbsp;•&nbsp; Universal Orlando &nbsp;•&nbsp; Epic Universe</div>
+    <div class="hero-hotels">
+      <span class="hotel-badge">🏨 Contemporary Resort (Apr 1–5)</span>
+      <span class="arrow">→</span>
+      <span class="hotel-badge">✨ Four Seasons Orlando (Apr 5–10)</span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- EASTER ALERT -->
+  <div class="alert mt8">
+    <div class="alert-title">🐣 SPRING BREAK & EASTER ALERT</div>
+    <p>Easter 2026 falls on <strong>Sunday, April 5</strong> — the day you visit Hollywood Studios. Your entire trip spans peak Easter / Spring Break, among the busiest days of the year. <strong>Lightning Lane and Universal Express Pass are not optional — they are essential.</strong> Your relax days on Apr 4 (Saturday) and Apr 7 (Tuesday) are perfectly placed around the busiest days.</p>
+  </div>
+
+  <!-- TEA TIME CALLOUT -->
+  <div class="tea-callout">
+    <h3>🫖 Grand Floridian Afternoon Tea — A Must for Your Wife!</h3>
+    <p>The <strong>Garden View Lounge Tea Experience</strong> at Disney's Grand Floridian Resort just reopened on <strong>March 19, 2026</strong>. It's Alice in Wonderland–themed, runs 12–4 PM daily, and the Grand Floridian is literally a 5-minute monorail ride from the Contemporary. It's been added to your <strong>April 4 relax day</strong> — the perfect Saturday activity when park crowds are at their absolute worst.</p>
+    <p class="tea-urgent">⚠️ Reservations opened Feb 19 and are filling fast. Call (407) WDW-DINE NOW to book your slot.</p>
+    <div class="tea-details">
+      <span class="tea-chip">12:00 PM – 4:00 PM Daily</span>
+      <span class="tea-chip">$79/adult</span>
+      <span class="tea-chip">Alice in Wonderland Theme</span>
+      <span class="tea-chip">Monorail from Contemporary</span>
+      <span class="tea-chip">Book: (407) WDW-DINE</span>
+    </div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div class="section" id="overview">
+    <div class="section-header"><h2>📋 Trip Overview</h2></div>
+    <div class="section-body">
+      <div class="overview-grid">
+        <div class="overview-card"><div class="label">Travelers</div><div class="value">Family of 4 — Adults + Kids (ages 11 & 13)</div></div>
+        <div class="overview-card"><div class="label">Dates</div><div class="value">April 1–10, 2026 (10 days)</div></div>
+        <div class="overview-card"><div class="label">Hotel 1</div><div class="value">Contemporary Resort, Apr 1–5 (4 nights)</div></div>
+        <div class="overview-card"><div class="label">Hotel 2</div><div class="value">Four Seasons Orlando, Apr 5–10 (5 nights)</div></div>
+        <div class="overview-card"><div class="label">Disney Parks</div><div class="value">Magic Kingdom · Animal Kingdom · Hollywood Studios · EPCOT</div></div>
+        <div class="overview-card"><div class="label">Universal</div><div class="value">Studios + Islands of Adventure · Epic Universe</div></div>
+        <div class="overview-card"><div class="label">Relax Days</div><div class="value">April 4 (Sat) · April 7 (Tue)</div></div>
+        <div class="overview-card"><div class="label">Dietary</div><div class="value">Halal only — see Halal Food Guide ↓</div></div>
+        <div class="overview-card"><div class="label">Kids' Top Picks</div><div class="value">Thrill rides · Harry Potter · Star Wars / Marvel</div></div>
+        <div class="overview-card"><div class="label">Pace</div><div class="value">Relaxed mid-morning start ~10 AM, midday breaks</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CROWD CALENDAR -->
+  <div class="section" id="crowds">
+    <div class="section-header"><h2>👥 Crowd Calendar</h2></div>
+    <div class="section-body">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Date</th><th>Day</th><th>Plan</th><th>Crowd Level</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Apr 1</td><td>Wed</td><td>Arrive · Contemporary</td><td class="crowd-score crowd-orange">8/10 ★★★★</td><td>Spring Break in full swing</td></tr>
+            <tr><td>Apr 2</td><td>Thu</td><td>Magic Kingdom</td><td class="crowd-score crowd-red">9/10 ★★★★★</td><td>Pre-Easter Spring Break peak. TRON LLSP first thing</td></tr>
+            <tr><td>Apr 3</td><td>Fri</td><td>Animal Kingdom</td><td class="crowd-score crowd-red">9/10 ★★★★★</td><td>Good Friday. One of busiest AK days of year</td></tr>
+            <tr style="background:#FFF0F0"><td><strong>Apr 4</strong></td><td>Sat</td><td><strong>✅ RELAX DAY</strong><br><small>Grand Floridian Tea 🫖</small></td><td class="crowd-score crowd-red"><strong>10/10 ★★★★★</strong></td><td><strong>Easter Saturday = absolute maximum. Perfect day to be off-site!</strong></td></tr>
+            <tr style="background:#FFF0F0"><td><strong>Apr 5</strong></td><td>Sun</td><td><strong>Hollywood Studios</strong><br><small>→ Transfer to Four Seasons</small></td><td class="crowd-score crowd-red"><strong>10/10 ★★★★★</strong></td><td><strong>EASTER SUNDAY. Start early, leave by midday</strong></td></tr>
+            <tr><td>Apr 6</td><td>Mon</td><td>Universal + Islands of Adv.</td><td class="crowd-score crowd-orange">7/10 ★★★</td><td>Post-Easter — Universal tapers faster than Disney</td></tr>
+            <tr><td><strong>Apr 7</strong></td><td>Tue</td><td><strong>✅ RELAX DAY</strong></td><td class="crowd-score crowd-green">6/10 ★★★</td><td>Post-Easter midweek. Four Seasons pool &amp; pickleball</td></tr>
+            <tr><td>Apr 8</td><td>Wed</td><td>Epic Universe</td><td class="crowd-score crowd-orange">7/10 ★★★</td><td>Mid-week post-Easter. Manageable with Express Pass</td></tr>
+            <tr><td>Apr 9</td><td>Thu</td><td>EPCOT</td><td class="crowd-score crowd-orange">7/10 ★★★</td><td>Good EPCOT day. Luminous show in evening</td></tr>
+            <tr><td>Apr 10</td><td>Fri</td><td>Travel Home ✈️</td><td class="crowd-score crowd-orange">8/10 ★★★★</td><td>Weekend building — great day to be leaving!</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="teal-box mt16"><strong>Key insight:</strong> Your April 4 and April 7 rest days fall on Easter Saturday and post-Easter Tuesday — the two busiest and most natural recovery windows of the trip. That is excellent planning.</div>
+    </div>
+  </div>
+
+  <!-- WEATHER -->
+  <div class="section" id="weather">
+    <div class="section-header"><h2>🌤 Weather — April in Orlando</h2></div>
+    <div class="section-body">
+      <div class="weather-grid">
+        <div class="weather-card"><div class="w-label">High Temp</div><div class="w-main">81°F</div><div class="w-sub">Can reach 88–90°F</div></div>
+        <div class="weather-card"><div class="w-label">Low Temp</div><div class="w-main">66°F</div><div class="w-sub">Cool mornings &amp; evenings</div></div>
+        <div class="weather-card"><div class="w-label">Humidity</div><div class="w-main">67%</div><div class="w-sub">Feels muggy in afternoon</div></div>
+        <div class="weather-card"><div class="w-label">Rain Days</div><div class="w-main">~9</div><div class="w-sub">Mostly brief PM storms</div></div>
+        <div class="weather-card"><div class="w-label">Sunshine</div><div class="w-main">10 hrs</div><div class="w-sub">Very sunny month</div></div>
+        <div class="weather-card"><div class="w-label">UV Index</div><div class="w-main">High</div><div class="w-sub">7–8 · SPF 50+ daily</div></div>
+      </div>
+      <div class="weather-detail mt16">
+        <div class="weather-row">
+          <span class="wr-label">Morning</span>
+          <span class="wr-val">Mid-to-upper 60s°F. Beautiful and comfortable. Light jacket useful at park opening.</span>
+          <div class="wr-times"><span class="time-chip">64–68°F</span></div>
+        </div>
+        <div class="weather-row">
+          <span class="wr-label">Midday</span>
+          <span class="wr-val">Hot and humid. 80–86°F with strong UV. This is when you take your hotel break.</span>
+          <div class="wr-times"><span class="time-chip">78–86°F</span></div>
+        </div>
+        <div class="weather-row">
+          <span class="wr-label">Afternoon</span>
+          <span class="wr-val">Peak heat. Watch for brief, heavy thunderstorms (30–45 min). Parks stay open through rain.</span>
+          <div class="wr-times"><span class="time-chip">⛈ Possible</span></div>
+        </div>
+        <div class="weather-row">
+          <span class="wr-label">Evening</span>
+          <span class="wr-val">Cools to low-to-mid 70s. Lovely for fireworks and nighttime shows. Light layer helpful.</span>
+          <div class="wr-times"><span class="time-chip">68–72°F</span></div>
+        </div>
+      </div>
+      <div class="tip-box mt16"><strong>Rain tip:</strong> Buy cheap packable ponchos before the trip (~$2–3 each vs $12+ inside parks). Pack one per person in your day bag every single day.</div>
+
+      <!-- PARK HOURS -->
+      <h3 style="margin-top:24px; font-size:16px; color:var(--teal); border-bottom:2px solid var(--teal-light); padding-bottom:6px;">Park Hours — Your Visit Dates</h3>
+      <p style="font-size:13px; color:var(--gray); margin:8px 0 14px; font-style:italic;">Based on historical Easter week patterns. Confirm exact times in My Disney Experience app and Universal app closer to your dates.</p>
+      <div class="park-hours-row">
+        <div class="ph-date">Apr 2 (Thu)</div>
+        <div style="flex:1;">
+          <div class="ph-park">Magic Kingdom</div>
+          <div class="ph-hours"><span class="ph-open">Opens 9:00 AM</span><span class="ph-early">Early Entry 8:30 AM</span><span class="ph-close">Closes ~11 PM–Midnight</span></div>
+          <div class="ph-note">MK stays open very late during Easter week — confirm in app. Walk from Contemporary (5 min!)</div>
+        </div>
+      </div>
+      <div class="park-hours-row">
+        <div class="ph-date">Apr 3 (Fri)</div>
+        <div style="flex:1;">
+          <div class="ph-park">Animal Kingdom</div>
+          <div class="ph-hours"><span class="ph-open">Opens 8:00 AM</span><span class="ph-early">Early Entry 7:30 AM</span><span class="ph-close">Closes ~8:00 PM</span></div>
+          <div class="ph-note">AK closes earlier than all other parks. Plan your day around this — use early entry for Flight of Passage!</div>
+        </div>
+      </div>
+      <div class="park-hours-row">
+        <div class="ph-date">Apr 5 (Sun)</div>
+        <div style="flex:1;">
+          <div class="ph-park">Hollywood Studios — Easter Sunday</div>
+          <div class="ph-hours"><span class="ph-open">Opens 9:00 AM</span><span class="ph-early">Early Entry 8:30 AM</span><span class="ph-close">Closes ~11:00 PM</span></div>
+          <div class="ph-note">Easter Sunday = maximum crowds all day. Arrive at Early Entry. Do Rise of the Resistance. Leave by midday — it only gets worse.</div>
+        </div>
+      </div>
+      <div class="park-hours-row">
+        <div class="ph-date">Apr 6 (Mon)</div>
+        <div style="flex:1;">
+          <div class="ph-park">Universal Studios Florida + Islands of Adventure</div>
+          <div class="ph-hours"><span class="ph-open">Opens 9:00 AM</span><span class="ph-close">Closes ~9:00 PM</span></div>
+          <div class="ph-note">Park-to-Park ticket needed for Diagon Alley ↔ Hogsmeade experience. Ride Hogwarts Express between parks!</div>
+        </div>
+      </div>
+      <div class="park-hours-row">
+        <div class="ph-date">Apr 8 (Wed)</div>
+        <div style="flex:1;">
+          <div class="ph-park">Epic Universe</div>
+          <div class="ph-hours"><span class="ph-open">Opens 9:00 AM</span><span class="ph-close">Closes ~9:00 PM</span></div>
+          <div class="ph-note">Confirm on Universal app — hours may be extended for Spring Break.</div>
+        </div>
+      </div>
+      <div class="park-hours-row">
+        <div class="ph-date">Apr 9 (Thu)</div>
+        <div style="flex:1;">
+          <div class="ph-park">EPCOT</div>
+          <div class="ph-hours"><span class="ph-open">Opens 9:00 AM</span><span class="ph-early">Early Entry 8:30 AM</span><span class="ph-close">Closes ~9:00 PM</span></div>
+          <div class="ph-note">Luminous nighttime show runs ~9 PM. Stake out a spot at World Showcase Lagoon by 8:20 PM. Don't leave early!</div>
+        </div>
+      </div>
+      <div class="tip-box mt16"><strong>Extended Evening Hours bonus:</strong> As Contemporary Resort guests (Disney Deluxe), you get 2 extra hours in select parks after closing with thin crowds. Current 2026 pattern: Mondays at EPCOT, Wednesdays at Magic Kingdom (10 PM–Midnight). Check the My Disney Experience app calendar for your specific dates.</div>
+    </div>
+  </div>
+
+  <!-- DAYS -->
+  <div class="section" id="days">
+    <div class="section-header"><h2>📅 Day-by-Day Itinerary</h2></div>
+    <div class="section-body" style="padding:12px;">
+      <p style="font-size:13px; color:var(--gray); margin-bottom:14px; padding:0 4px;">Tap any day to expand. Built for a relaxed mid-morning pace with midday breaks.</p>
+
+      <!-- APR 1 -->
+      <div class="day-item">
+        <button class="day-header" onclick="toggleDay(this)" aria-expanded="false">
+          <div class="day-date-badge">Apr 1<br><small style="font-weight:400;font-size:11px;">Wed</small></div>
+          <div class="day-weekday">Arrival Day</div>
+          <div class="day-title">✈️ Arrive · Contemporary Check-In · Disney Springs</div>
+          <div class="day-chevron">▾</div>
+        </button>
+        <div class="day-hotel-bar">🏨 Disney's Contemporary Resort — Night 1</div>
+        <div class="day-body">
+          <div class="strategy-note"><strong>Strategy:</strong> Place grocery delivery order (Instacart/Amazon Fresh) as soon as you arrive. Stock halal snacks, breakfast items, and protein bars for the week.</div>
+          <table class="schedule">
+            <thead class="schedule-head"><tr><th>Time</th><th>Activity</th><th class="s-note-head">Tips / Notes</th></tr></thead>
+            <tbody>
+              <tr><td class="s-time">Afternoon</td><td>Arrive · Check in to Contemporary Resort</td><td class="s-note">Request halal dining note at front desk</td></tr>
+              <tr><td class="s-time">3:30 PM</td><td>Explore hotel · Grand Canyon Concourse mural · monorail loop</td><td class="s-note">Great intro to Disney resort area. Scenic and free</td></tr>
+              <tr><td class="s-time">5:00 PM</td><td>Pool time at the Contemporary</td><td class="s-note">Kids love the pool area</td></tr>
+              <tr><td class="s-time">7:00 PM</td><td>Disney Springs for dinner</td><td class="s-note">Free Disney bus from hotel. No park ticket needed</td></tr>
+              <tr><td class="s-time">8:30 PM</td><td>Explore Disney Springs — LEGO Store, World of Disney, entertainment</td><td class="s-note">Easy, relaxed evening after travel</td></tr>
+              <tr><td class="s-time">10:00 PM</td><td>Return to hotel. Early night.</td><td class="s-note">Big week ahead!</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- APR 2 -->
+      <div class="day-item">
+        <button class="day-header" onclick="toggleDay(this)" aria-expanded="false">
+          <div class="day-date-badge">Apr 2<br><small style="font-weight:400;font-size:11px;">Thu</small></div>
+          <div class="day-weekday">Park Day</div>
+          <div class="day-title">🏰 Magic Kingdom — TRON, Space Mountain &amp; Fireworks</div>
+          <div class="day-chevron">▾</div>
+        </button>
+        <div class="day-hotel-bar">🏨 Disney's Contemporary Resort — Night 2</div>
+        <div class="day-body">
+          <div class="strategy-note"><strong>Strategy:</strong> TRON Lightcycle Run (LLSP) and Space Mountain (LLMP Tier 1) are your top targets. Book TRON the moment your Lightning Lane window opens — it sells out before 8 AM. The Contemporary is a 5-minute walk to Magic Kingdom — use this for a midday rest.</div>
+          <table class="schedule">
+            <thead class="schedule-head"><tr><th>Time</th><th>Activity</th><th class="s-note-head">Tips / Notes</th></tr></thead>
+            <tbody>
+              <tr><td class="s-time">8:30 AM</td><td>Walk to Magic Kingdom — Early Entry (30 min before open)</td><td class="s-note">Walk directly from Contemporary — no transportation!</td></tr>
+              <tr class="highlight"><td class="s-time">9:00 AM</td><td>🚀 TRON Lightcycle Run</td><td class="s-note">LLSP. Fastest coaster at MK. Most in-demand ride.</td></tr>
+              <tr><td class="s-time">9:45 AM</td><td>Space Mountain</td><td class="s-note">LLMP. Classic. Perfect for 11 &amp; 13 year olds</td></tr>
+              <tr><td class="s-time">10:30 AM</td><td>Tiana's Bayou Adventure</td><td class="s-note">Family log flume — may get wet!</td></tr>
+              <tr><td class="s-time">12:30 PM</td><td>Lunch — Pecos Bill Tall Tale Inn (halal chicken)</td><td class="s-note">Counter service. State halal at register. ~15-20 min extra wait</td></tr>
+              <tr><td class="s-time">1:30 PM</td><td>Walk back to Contemporary — midday rest</td><td class="s-note">5-minute walk! Nap, swim, recharge. Beat the Florida heat.</td></tr>
+              <tr><td class="s-time">3:30 PM</td><td>Return to Magic Kingdom — Big Thunder Mountain + Haunted Mansion</td><td class="s-note">Afternoon crowds begin thinning after 4 PM</td></tr>
+              <tr><td class="s-time">5:00 PM</td><td>Pirates of the Caribbean · Liberty Square stroll</td><td class="s-note"></td></tr>
+              <tr><td class="s-time">7:00 PM</td><td>Dinner — table service in park or at Contemporary</td><td class="s-note">Request halal 24 hrs ahead. Chef Mickey's great for kids!</td></tr>
+              <tr class="highlight"><td class="s-time">9:00 PM</td><td>✨ Disney Enchantment Fireworks</td><td class="s-note">Watch from Main Street USA. Castle projections are stunning.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- APR 3 -->
+      <div class="day-item">
+        <button class="day-header" onclick="toggleDay(this)" aria-expanded="false">
+          <div class="day-date-badge">Apr 3<br><small style="font-weight:400;font-size:11px;">Fri</small></div>
+          <div class="day-weekday">Park Day</div>
+          <div class="day-title">🦁 Animal Kingdom — Avatar, Everest &amp; Safari</div>
+          <div class="day-chevron">▾</div>
+        </button>
+        <div class="day-hotel-bar">🏨 Disney's Contemporary Resort — Night 3</div>
+        <div class="day-body">
+          <div class="strategy-note"><strong>Strategy:</strong> Animal Kingdom closes earlier (~8 PM). Avatar: Flight of Passage is the single most in-demand ride in all of Walt Disney World — book it as LLSP and ride it the moment Early Entry begins. Good Friday will be extremely busy.</div>
+          <table class="schedule">
+            <thead class="schedule-head"><tr><th>Time</th><th>Activity</th><th class="s-note-head">Tips / Notes</th></tr></thead>
+            <tbody>
+              <tr><td class="s-time">7:30 AM</td><td>Animal Kingdom Early Entry</td><td class="s-note">Take Disney bus. Head straight to Pandora.</td></tr>
+              <tr class="highlight"><td class="s-time">8:00 AM</td><td>🌌 Avatar: Flight of Passage</td><td class="s-note">LLSP. Best ride in the park — unmissable. Pandora.</td></tr>
+              <tr><td class="s-time">8:50 AM</td><td>Na'vi River Journey</td><td class="s-note">LLMP. Beautiful immersive boat ride through Pandora</td></tr>
+              <tr><td class="s-time">9:45 AM</td><td>Expedition Everest</td><td class="s-note">LLMP. Great thrill coaster — surprise backwards section!</td></tr>
+              <tr class="highlight"><td class="s-time">1:00 PM</td><td>🥙 Lunch — Satu'li Canteen (halal bowls!)</td><td class="s-note">Best halal quick service at Disney World. Halal chicken &amp; beef bowls. Highly recommended.</td></tr>
+              <tr><td class="s-time">2:00 PM</td><td>Kilimanjaro Safaris</td><td class="s-note">Late afternoon → animals more active as it cools</td></tr>
+              <tr><td class="s-time">3:15 PM</td><td>Kali River Rapids (get wet!) or Gorilla Falls Trail</td><td class="s-note">Great on a hot afternoon</td></tr>
+              <tr><td class="s-time">4:30 PM</td><td>Festival of the Lion King (live show)</td><td class="s-note">Fantastic performance. Arrive 20 min early for seats.</td></tr>
+              <tr><td class="s-time">6:00 PM</td><td>Return to hotel</td><td class="s-note">Easy evening — in-room groceries or hotel dining</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- APR 4 RELAX -->
+      <div class="day-item relax-day">
+        <button class="day-header" onclick="toggleDay(this)" aria-expanded="false">
+          <div class="day-date-badge">Apr 4<br><small style="font-weight:400;font-size:11px;">Sat</small></div>
+          <div class="day-weekday">Relax Day ✅</div>
+          <div class="day-title">🫖 Grand Floridian Afternoon Tea &amp; Resort Day</div>
+          <div class="day-chevron">▾</div>
+        </button>
+        <div class="day-hotel-bar">🏨 Disney's Contemporary Resort — Night 4</div>
+        <div class="day-body">
+          <div class="day-note-open">Easter Saturday = absolute maximum park crowds. You are perfectly placed off-site today. The monorail takes you directly to the Grand Floridian for a special afternoon tea experience!</div>
+          <div class="tea-callout" style="margin:10px 14px;">
+            <h3>🫖 Garden View Lounge Afternoon Tea</h3>
+            <p>Alice in Wonderland–themed afternoon tea at Disney's most elegant resort. Just reopened March 19, 2026. The Grand Floridian is a 5-minute monorail ride from the Contemporary. <span class="tea-urgent">Book NOW via (407) WDW-DINE — reservations are filling fast.</span></p>
+            <div class="tea-details"><span class="tea-chip">1:00–3:00 PM suggested</span><span class="tea-chip">$79/adult</span><span class="tea-chip">Twinings Tea Selection</span></div>
+          </div>
+          <table class="schedule">
+            <thead class="schedule-head"><tr><th>Time</th><th>Activity</th><th class="s-note-head">Tips / Notes</th></tr></thead>
+            <tbody>
+              <tr><td class="s-time">Morning</td><td>Sleep in. Leisurely breakfast from room service</td><td class="s-note">Saturday parks: absolute maximum crowds — perfect day to stay away</td></tr>
+              <tr><td class="s-time">10:30 AM</td><td>Contemporary pool</td><td class="s-note">Swim, relax, decompress</td></tr>
+              <tr><td class="s-time">12:15 PM</td><td>Monorail to Grand Floridian Resort</td><td class="s-note">Free, scenic, ~5 min ride from Contemporary</td></tr>
+              <tr class="highlight"><td class="s-time">1:00 PM</td><td>🫖 Garden View Lounge — Afternoon Tea</td><td class="s-note">Alice in Wonderland theme. 12–4 PM daily. $79/adult. BOOK IN ADVANCE!</td></tr>
+              <tr><td class="s-time">3:00 PM</td><td>Explore Grand Floridian lobby, shops &amp; gardens</td><td class="s-note">One of Disney's most beautiful resort lobbies. Victorian architecture.</td></tr>
+              <tr><td class="s-time">4:00 PM</td><td>Monorail back to Contemporary · pool or rest</td><td class="s-note"></td></tr>
+              <tr><td class="s-time">6:30 PM</td><td>Disney Springs for dinner</td><td class="s-note">Istanbul Grill or other halal-friendly options nearby</td></tr>
+              <tr><td class="s-time">8:30 PM</td><td>Return to hotel · pack for hotel transfer tomorrow</td><td class="s-note"></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- APR 5 -->
+      <div class="day-item">
+        <button class="day-header" onclick="toggleDay(this)" aria-expanded="false">
+          <div class="day-date-badge">Apr 5<br><small style="font-weight:400;font-size:11px;">Sun</small></div>
+          <div class="day-weekday">Park Day</div>
+          <div class="day-title">🌟 Hollywood Studios → Transfer to Four Seasons</div>
+          <div class="day-chevron">▾</div>
+        </button>
+        <div class="day-hotel-bar">🏨 Check Out: Contemporary → Check In: Four Seasons Orlando</div>
+        <div class="day-body">
+          <div class="strategy-note"><strong>Easter Sunday Strategy:</strong> Rise of the Resistance is the crown jewel of Hollywood Studios. Book it LLSP or LLMP Tier 1. Arrive at Early Entry, hit the top 2-3 rides, then leave by midday BEFORE the Easter crowds become truly unbearable. Transfer to Four Seasons in the afternoon.</div>
+          <table class="schedule">
+            <thead class="schedule-head"><tr><th>Time</th><th>Activity</th><th class="s-note-head">Tips / Notes</th></tr></thead>
+            <tbody>
+              <tr><td class="s-time">9:00 AM</td><td>Check out of Contemporary (hold bags with bell services)</td><td class="s-note">Bell services holds bags while you're at the park</td></tr>
+              <tr><td class="s-time">8:30 AM</td><td>Hollywood Studios Early Entry</td><td class="s-note">Head straight to Galaxy's Edge</td></tr>
+              <tr class="highlight"><td class="s-time">9:00 AM</td><td>⭐ Star Wars: Rise of the Resistance</td><td class="s-note">LLSP. One of the greatest theme park rides ever built. Allow 30+ min.</td></tr>
+              <tr><td class="s-time">10:00 AM</td><td>Millennium Falcon: Smugglers Run</td><td class="s-note">LLMP. Request pilot seats for the active role!</td></tr>
+              <tr><td class="s-time">11:00 AM</td><td>Galaxy's Edge — Oga's Cantina, Droid Depot, shops</td><td class="s-note">Book Oga's Cantina in advance. Build a custom droid here!</td></tr>
+              <tr><td class="s-time">1:00 PM</td><td>Lunch — ABC Commissary (halal chicken)</td><td class="s-note">Counter service. Ask staff to sub rice for beans.</td></tr>
+              <tr><td class="s-time">2:00 PM</td><td>Rock 'n' Roller Coaster + Tower of Terror</td><td class="s-note">LLMP for both. Your thrill-seekers will love them.</td></tr>
+              <tr><td class="s-time">4:30 PM</td><td>Leave park · collect bags · transfer to Four Seasons</td><td class="s-note">Short drive on Disney property</td></tr>
+              <tr><td class="s-time">5:30 PM</td><td>Check in to Four Seasons Resort Orlando</td><td class="s-note">Book pickleball courts and spa through concierge</td></tr>
+              <tr class="highlight"><td class="s-time">7:30 PM</td><td>✨ Dinner at Ravello (Four Seasons)</td><td class="s-note">Confirm halal with chef in advance. Exceptional quality.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- APR 6 -->
+      <div class="day-item">
+        <button class="day-header" onclick="toggleDay(this)" aria-expanded="false">
+          <div class="day-date-badge">Apr 6<br><small style="font-weight:400;font-size:11px;">Mon</small></div>
+          <div class="day-weekday">Park Day</div>
+          <div class="day-title">⚡ Universal — Harry Potter Hogsmeade &amp; Diagon Alley</div>
+          <div class="day-chevron">▾</div>
+        </button>
+        <div class="day-hotel-bar fs">✨ Four Seasons Resort Orlando — Night 2</div>
+        <div class="day-body">
+          <div class="strategy-note"><strong>Strategy:</strong> This is the original Wizarding World — Hogsmeade (Islands of Adventure) + Diagon Alley (Universal Studios). Hagrid's Motorbike is the #1 ride at Universal and can hit 90–180 min waits. Express Pass makes this manageable. Ride Hogwarts Express between the two Harry Potter worlds — it requires a Park-to-Park ticket but is an experience in itself.</div>
+          <table class="schedule">
+            <thead class="schedule-head"><tr><th>Time</th><th>Activity</th><th class="s-note-head">Tips / Notes</th></tr></thead>
+            <tbody>
+              <tr><td class="s-time">9:00 AM</td><td>Arrive Universal — Islands of Adventure</td><td class="s-note">~20 min drive from Four Seasons</td></tr>
+              <tr class="highlight"><td class="s-time">9:30 AM</td><td>🦕 Hagrid's Magical Creatures Motorbike Adventure</td><td class="s-note">Express Pass. #1 ride at Universal. Go first!</td></tr>
+              <tr class="highlight"><td class="s-time">10:30 AM</td><td>⚡ Hogsmeade — Harry Potter &amp; the Forbidden Journey</td><td class="s-note">Express Pass. Ride through Hogwarts castle. Iconic.</td></tr>
+              <tr><td class="s-time">11:15 AM</td><td>Hogsmeade — wand spells, Butterbeer, shops</td><td class="s-note">Flight of the Hippogriff coaster nearby too</td></tr>
+              <tr><td class="s-time">1:00 PM</td><td>Lunch — Three Broomsticks (Hogsmeade)</td><td class="s-note">Ask about halal chicken. Confirm with staff on arrival.</td></tr>
+              <tr class="highlight"><td class="s-time">2:00 PM</td><td>🚂 Hogwarts Express to Diagon Alley</td><td class="s-note">Requires Park-to-Park ticket. Different experience each direction!</td></tr>
+              <tr class="highlight"><td class="s-time">2:30 PM</td><td>⚡ Harry Potter &amp; the Escape from Gringotts</td><td class="s-note">Express Pass. Thrilling dark ride through Gringotts bank.</td></tr>
+              <tr><td class="s-time">3:30 PM</td><td>Diagon Alley — Ollivanders, Weasleys' Wizard Wheezes</td><td class="s-note">Best HP theming in the world. Incredible detail.</td></tr>
+              <tr><td class="s-time">4:30 PM</td><td>VelociCoaster — Jurassic World</td><td class="s-note">Express Pass. One of the best coasters in the US.</td></tr>
+              <tr><td class="s-time">7:00 PM</td><td>Return to Four Seasons</td><td class="s-note"></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- APR 7 RELAX -->
+      <div class="day-item relax-day">
+        <button class="day-header" onclick="toggleDay(this)" aria-expanded="false">
+          <div class="day-date-badge">Apr 7<br><small style="font-weight:400;font-size:11px;">Tue</small></div>
+          <div class="day-weekday">Relax Day ✅</div>
+          <div class="day-title">🏊 Four Seasons — Pool, Pickleball &amp; Spa</div>
+          <div class="day-chevron">▾</div>
+        </button>
+        <div class="day-hotel-bar fs">✨ Four Seasons Resort Orlando — Night 3</div>
+        <div class="day-body">
+          <div class="day-note-open">The Four Seasons Orlando pool complex is genuinely world-class — lazy river, waterslide, splash zones. Your kids could spend an entire day here. Let everyone recharge. Post-Easter midweek = parks are quieter today, but you planned this perfectly.</div>
+          <table class="schedule">
+            <thead class="schedule-head"><tr><th>Time</th><th>Activity</th><th class="s-note-head">Tips / Notes</th></tr></thead>
+            <tbody>
+              <tr><td class="s-time">Morning</td><td>Sleep in. Leisurely breakfast — Ravello or room service</td><td class="s-note">Confirm halal needs with kitchen</td></tr>
+              <tr class="highlight"><td class="s-time">10:00 AM</td><td>🏓 Pickleball at the Four Seasons</td><td class="s-note">Book through concierge in advance — courts fill up</td></tr>
+              <tr><td class="s-time">11:30 AM</td><td>Four Seasons pool — lazy river, waterslide, splash area</td><td class="s-note">Your kids will not want to leave. Genuinely excellent pool complex.</td></tr>
+              <tr><td class="s-time">1:00 PM</td><td>Poolside lunch</td><td class="s-note">Confirm halal options when ordering from pool menu</td></tr>
+              <tr class="highlight"><td class="s-time">3:00 PM</td><td>💆 Spa for the adults (optional)</td><td class="s-note">Book through concierge in advance. Well-deserved!</td></tr>
+              <tr><td class="s-time">3:00 PM</td><td>Kids — continued pool or resort activities</td><td class="s-note">Ask concierge about supervised kids' club activities</td></tr>
+              <tr><td class="s-time">7:00 PM</td><td>Dinner out — Istanbul Grill or Ravello</td><td class="s-note">Istanbul Grill: top-rated halal near Disney Springs</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- APR 8 -->
+      <div class="day-item">
+        <button class="day-header" onclick="toggleDay(this)" aria-expanded="false">
+          <div class="day-date-badge">Apr 8<br><small style="font-weight:400;font-size:11px;">Wed</small></div>
+          <div class="day-weekday">Park Day</div>
+          <div class="day-title">⚡ Epic Universe — Harry Potter Ministry &amp; Nintendo</div>
+          <div class="day-chevron">▾</div>
+        </button>
+        <div class="day-hotel-bar fs">✨ Four Seasons Resort Orlando — Night 4</div>
+        <div class="day-body">
+          <div class="strategy-note"><strong>Strategy:</strong> Epic Universe opened in 2025 and is the hottest new park in the world. Express Pass is essential. Harry Potter: Battle at the Ministry is the star attraction — ride it first at opening. Super Nintendo World requires a timed entry reservation on the Universal app — grab it the moment you enter the park. Buy Power-Up Bands in advance.</div>
+          <table class="schedule">
+            <thead class="schedule-head"><tr><th>Time</th><th>Activity</th><th class="s-note-head">Tips / Notes</th></tr></thead>
+            <tbody>
+              <tr><td class="s-time">9:00 AM</td><td>Arrive at Epic Universe at opening</td><td class="s-note">~20 min drive from Four Seasons / Disney property</td></tr>
+              <tr class="highlight"><td class="s-time">Opening</td><td>⚡ Harry Potter: Battle at the Ministry</td><td class="s-note">Express Pass. The star attraction. Ride immediately. One of the most advanced dark rides ever built.</td></tr>
+              <tr><td class="s-time">10:30 AM</td><td>Ministry of Magic world — Le Cirque Arcanus show, wand experiences</td><td class="s-note">Set in 1920s Paris. Extraordinary theming.</td></tr>
+              <tr class="highlight"><td class="s-time">11:30 AM</td><td>🍄 Super Nintendo World — grab timed entry on app FIRST</td><td class="s-note">Express Pass for Mario Kart: Bowser's Challenge. Power-Up Bands! Reserve timed entry immediately on arrival.</td></tr>
+              <tr><td class="s-time">1:00 PM</td><td>Lunch in park</td><td class="s-note">Ask staff for halal-certified items. Check Universal's dietary guide.</td></tr>
+              <tr><td class="s-time">2:00 PM</td><td>How to Train Your Dragon: Isle of Berk</td><td class="s-note">Family-friendly. Dragon shows, multiple rides, spectacular theming.</td></tr>
+              <tr class="highlight"><td class="s-time">3:30 PM</td><td>Dark Universe — Universal Monsters world</td><td class="s-note">Atmospheric and thrilling. Your 11 and 13 year olds will love it.</td></tr>
+              <tr><td class="s-time">5:00 PM</td><td>Celestial Park — Stardust Racers coaster, Constellation Carousel</td><td class="s-note">Central hub of the park. Beautiful design.</td></tr>
+              <tr><td class="s-time">7:30 PM</td><td>Return to Four Seasons</td><td class="s-note">Dinner at Ravello or room service</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- APR 9 -->
+      <div class="day-item">
+        <button class="day-header" onclick="toggleDay(this)" aria-expanded="false">
+          <div class="day-date-badge">Apr 9<br><small style="font-weight:400;font-size:11px;">Thu</small></div>
+          <div class="day-weekday">Park Day</div>
+          <div class="day-title">🌍 EPCOT — Guardians, Morocco Halal &amp; Luminous</div>
+          <div class="day-chevron">▾</div>
+        </button>
+        <div class="day-hotel-bar fs">✨ Four Seasons Resort Orlando — Night 5</div>
+        <div class="day-body">
+          <div class="strategy-note"><strong>Strategy:</strong> Guardians of the Galaxy: Cosmic Rewind is LLMP Tier 1 at EPCOT — book it the moment your window opens at 7 AM ET. The Morocco Pavilion's Tangierine Café is the single best halal meal in any Disney or Universal park. Luminous nighttime show closes your last park day perfectly.</div>
+          <table class="schedule">
+            <thead class="schedule-head"><tr><th>Time</th><th>Activity</th><th class="s-note-head">Tips / Notes</th></tr></thead>
+            <tbody>
+              <tr><td class="s-time">8:30 AM</td><td>EPCOT Early Entry</td><td class="s-note">Take Disney bus from Four Seasons</td></tr>
+              <tr class="highlight"><td class="s-time">9:00 AM</td><td>🚀 Guardians of the Galaxy: Cosmic Rewind</td><td class="s-note">LLMP Tier 1. Indoor coaster with 80s music. Absolutely brilliant.</td></tr>
+              <tr><td class="s-time">10:00 AM</td><td>Test Track</td><td class="s-note">LLMP. Design a concept car then race it through speed tests</td></tr>
+              <tr><td class="s-time">11:00 AM</td><td>Mission: SPACE (Green = family / Orange = intense)</td><td class="s-note">Orange Mission is very intense — thrill seekers will want both!</td></tr>
+              <tr class="highlight"><td class="s-time">1:00 PM</td><td>🥙 Lunch — Tangierine Café, Morocco Pavilion</td><td class="s-note">BEST HALAL OPTION IN ALL OF DISNEY. Shawarma, lamb, falafel, hummus. Don't skip this.</td></tr>
+              <tr><td class="s-time">2:00 PM</td><td>World Showcase stroll — Morocco, France, Japan, Canada</td><td class="s-note">Relaxed, cultural, great window shopping</td></tr>
+              <tr><td class="s-time">3:30 PM</td><td>Frozen Ever After (Norway)</td><td class="s-note">LLMP. Short but fun boat ride</td></tr>
+              <tr><td class="s-time">5:00 PM</td><td>Rest break at hotel or sit in park</td><td class="s-note"></td></tr>
+              <tr><td class="s-time">7:00 PM</td><td>Dinner — Spice Road Table (Morocco, EPCOT)</td><td class="s-note">Request halal when booking. Great atmosphere on the lagoon.</td></tr>
+              <tr><td class="s-time">8:20 PM</td><td>Stake out spot at World Showcase Lagoon</td><td class="s-note">Arrive early for a good view of Luminous</td></tr>
+              <tr class="highlight"><td class="s-time">9:00 PM</td><td>✨ Luminous the Global Celebration</td><td class="s-note">Best nighttime show at Disney World. Perfect end to your last park day.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- APR 10 -->
+      <div class="day-item relax-day">
+        <button class="day-header" onclick="toggleDay(this)" aria-expanded="false">
+          <div class="day-date-badge">Apr 10<br><small style="font-weight:400;font-size:11px;">Fri</small></div>
+          <div class="day-weekday">Travel Day</div>
+          <div class="day-title">✈️ Check Out &amp; Fly Home</div>
+          <div class="day-chevron">▾</div>
+        </button>
+        <div class="day-hotel-bar fs">✨ Four Seasons Resort Orlando — Check Out</div>
+        <div class="day-body">
+          <table class="schedule">
+            <thead class="schedule-head"><tr><th>Time</th><th>Activity</th><th class="s-note-head">Tips / Notes</th></tr></thead>
+            <tbody>
+              <tr><td class="s-time">Morning</td><td>Leisurely breakfast at Ravello or room service</td><td class="s-note">One final halal breakfast — enjoy the Four Seasons one last time</td></tr>
+              <tr><td class="s-time">Late AM</td><td>Check out of Four Seasons</td><td class="s-note">Concierge can arrange luggage handling and transportation to MCO</td></tr>
+              <tr><td class="s-time">Midday</td><td>Transfer to Orlando International Airport (MCO)</td><td class="s-note">~30 min drive from Disney area</td></tr>
+              <tr><td class="s-time">Afternoon</td><td>✈️ Fly home</td><td class="s-note">Safe travels! What an amazing trip.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- HALAL FOOD GUIDE -->
+  <div class="section" id="halal">
+    <div class="section-header"><h2>🥙 Halal Food Guide — By Park</h2></div>
+    <div class="section-body">
+      <p style="font-size:14px; color:var(--text); margin-bottom:14px;">You <strong>cannot order halal via the Disney app</strong> — order at the counter in person. Expect 15–20 min additional wait at quick-service locations. For table-service, call <strong>(407) 939-3463</strong> at least 24 hours ahead.</p>
+      <div class="table-wrap">
+        <table class="halal-table">
+          <thead><tr><th>Park / Location</th><th>Restaurant</th><th>What to Order / Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Magic Kingdom (Apr 2)</td><td>Cosmic Ray's Starlight Cafe</td><td>Halal rotisserie chicken. Order at counter, state dietary need.</td></tr>
+            <tr><td>Magic Kingdom (Apr 2)</td><td>Pecos Bill Tall Tale Inn</td><td>Halal chicken. Counter service.</td></tr>
+            <tr class="halal-best"><td>Animal Kingdom (Apr 3)</td><td><strong>Satu'li Canteen</strong> <span class="best-badge">★ BEST</span></td><td><strong>Halal chicken &amp; beef bowls. Excellent quality &amp; portions. Highly recommended.</strong></td></tr>
+            <tr><td>Hollywood Studios (Apr 5)</td><td>ABC Commissary</td><td>Halal chicken club sandwich. Sub rice for beans (beans contain non-halal gravy).</td></tr>
+            <tr><td>Universal (Apr 6)</td><td>Three Broomsticks (Hogsmeade)</td><td>Ask about halal chicken options on arrival.</td></tr>
+            <tr><td>Universal (Apr 6)</td><td>Leaky Cauldron (Diagon Alley)</td><td>Ask staff about halal-certified items.</td></tr>
+            <tr class="halal-best"><td>EPCOT (Apr 9)</td><td><strong>Tangierine Café — Morocco</strong> <span class="best-badge">★ BEST</span></td><td><strong>BEST OPTION IN ALL OF DISNEY. Shawarma, lamb, falafel, hummus. Naturally halal-friendly. Eat here every EPCOT visit.</strong></td></tr>
+            <tr><td>EPCOT (Apr 9)</td><td>Spice Road Table (Morocco)</td><td>Sit-down with lagoon view. Request halal when booking.</td></tr>
+            <tr><td>EPCOT (Apr 9)</td><td>Sunshine Seasons</td><td>Halal protein options. Good backup.</td></tr>
+            <tr><td>Epic Universe (Apr 8)</td><td>Ministry of Magic food areas</td><td>Ask staff for halal-certified items. Check Universal dietary PDF in advance.</td></tr>
+            <tr><td>Contemporary (Apr 1–5)</td><td>Chef Mickey's</td><td>Character dining! Fun for kids. Request halal in advance.</td></tr>
+            <tr><td>Contemporary (Apr 1–5)</td><td>The Wave</td><td>Table service. Request halal 24 hrs ahead.</td></tr>
+            <tr class="halal-best"><td>Four Seasons (Apr 5–10)</td><td><strong>Ravello Restaurant</strong> <span class="best-badge">★ BEST</span></td><td><strong>Speak directly with the chef. This kitchen handles halal superbly with advance notice.</strong></td></tr>
+            <tr><td>Four Seasons (Apr 5–10)</td><td>Room Service</td><td>Confirm halal needs with kitchen each time. Excellent quality.</td></tr>
+            <tr><td>Off-Site</td><td>Istanbul Grill</td><td>Top-rated halal near Disney Springs. Great for a dinner out.</td></tr>
+            <tr><td>Off-Site</td><td>Abdo Kabab / Abba's Kitchen</td><td>Well-reviewed halal in wider Orlando area.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tip-box mt16"><strong>Packing tip:</strong> Bring halal-certified snacks, protein bars, dried fruit, and nuts in your day bag every day. This removes the stress of finding food mid-park and keeps everyone energized between meals. Stock up via grocery delivery on April 1.</div>
+    </div>
+  </div>
+
+  <!-- PACKING LIST -->
+  <div class="section" id="packing">
+    <div class="section-header"><h2>🧳 What to Wear &amp; Packing Guide</h2></div>
+    <div class="section-body">
+      <p style="font-size:14px; color:var(--text); margin-bottom:16px;">Early April in Orlando: mornings in the mid-60s°F, afternoons hot and muggy (80–86°F), evenings cool to low 70s. Disney's indoor A/C is aggressive — the jump from 83°F outside to freezing indoors is jarring. Layer accordingly.</p>
+
+      <div class="pack-section">
+        <h3>👟 Clothing &amp; Footwear</h3>
+        <div class="pack-items">
+          <div class="pack-item">Moisture-wicking t-shirts (4–5 per person) — avoid plain cotton for all-day park wear</div>
+          <div class="pack-item">Comfortable walking shorts</div>
+          <div class="pack-item">Light zip-up hoodie or thin cardigan — for evenings and fierce indoor A/C</div>
+          <div class="pack-item"><strong>Broken-in walking shoes</strong> — most important item. DO NOT wear new shoes. 15,000–20,000+ steps/day.</div>
+          <div class="pack-item">Water shoes or old trainers for Tiana's Bayou Adv (Apr 2) &amp; Kali River Rapids (Apr 3)</div>
+          <div class="pack-item">Swimwear for Contemporary &amp; Four Seasons pools</div>
+          <div class="pack-item">1–2 nicer casual outfits for Four Seasons Ravello dinners</div>
+        </div>
+      </div>
+
+      <div class="pack-section">
+        <h3>☀️ Sun &amp; Heat Protection</h3>
+        <div class="pack-items">
+          <div class="pack-item">SPF 50+ sunscreen — reapply every 2 hours. UV index in April: HIGH (7–8)</div>
+          <div class="pack-item">Wide-brim hats or caps for all 4 family members</div>
+          <div class="pack-item">Sunglasses for everyone</div>
+          <div class="pack-item">Battery-powered neck fans or personal cooling fans — game-changer in 83°F heat in queues</div>
+          <div class="pack-item">Reusable water bottles — Disney provides free ice water at quick service locations</div>
+        </div>
+      </div>
+
+      <div class="pack-section">
+        <h3>🎒 Day Bag Essentials</h3>
+        <div class="pack-items">
+          <div class="pack-item">Lightweight day pack (one bag for the family)</div>
+          <div class="pack-item"><strong>Cheap rain ponchos</strong> for all 4 (~$2–3 each from Amazon vs $12+ in parks)</div>
+          <div class="pack-item">Halal-certified snacks: protein bars, nuts, dried fruit, crackers</div>
+          <div class="pack-item">Blister bandages (essential!), pain reliever, antacids, prescriptions</div>
+          <div class="pack-item">Portable phone charger / power bank — you will drain your battery every park day</div>
+          <div class="pack-item">Hand sanitizer and wipes</div>
+          <div class="pack-item">Dry bags or zip-locks for phones on splash rides</div>
+        </div>
+      </div>
+
+      <div class="pack-section">
+        <h3>📱 Tech &amp; Park Prep</h3>
+        <div class="pack-items">
+          <div class="pack-item">MagicBand+ for all family members (linked to My Disney Experience)</div>
+          <div class="pack-item">My Disney Experience app — link all tickets + Family &amp; Friends list before arriving</div>
+          <div class="pack-item">Universal Orlando app — wait times, Nintendo World timed entry, Express Pass</div>
+          <div class="pack-item">Power-Up Bands for Super Nintendo World at Epic Universe — buy in advance online</div>
+          <div class="pack-item">Screenshot or print this itinerary — don't rely on data inside crowded parks</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACTS -->
+  <div class="section" id="contacts">
+    <div class="section-header"><h2>📞 Key Contacts &amp; Resources</h2></div>
+    <div class="section-body">
+      <div class="contacts-grid">
+        <div class="contact-card"><div class="c-label">Disney Dining + Halal</div><div class="c-val">(407) WDW-DINE</div><div class="c-note">(407) 939-3463 — Add halal requests to every reservation</div></div>
+        <div class="contact-card"><div class="c-label">Grand Floridian Tea</div><div class="c-val">(407) WDW-DINE</div><div class="c-note">Book Garden View Lounge Tea Experience NOW — filling fast</div></div>
+        <div class="contact-card"><div class="c-label">My Disney Experience</div><div class="c-val">App + disneyworld.com</div><div class="c-note">Lightning Lane bookings, wait times, dining, maps</div></div>
+        <div class="contact-card"><div class="c-label">Lightning Lane Window</div><div class="c-val">7 AM ET — 7 days out</div><div class="c-note">Disney Resort guests book at 7:00 AM ET, 7 days before check-in</div></div>
+        <div class="contact-card"><div class="c-label">Universal / Express Pass</div><div class="c-val">universalorlando.com</div><div class="c-note">Buy Express Pass before travel. Epic Universe requires a separate purchase.</div></div>
+        <div class="contact-card"><div class="c-label">Grocery Delivery</div><div class="c-val">Instacart / Amazon Fresh</div><div class="c-note">Deliver halal snacks &amp; breakfast items to Contemporary on Apr 1</div></div>
+        <div class="contact-card"><div class="c-label">Four Seasons Concierge</div><div class="c-val">On-site</div><div class="c-note">Book pickleball, spa, confirm halal dining — contact before arrival</div></div>
+        <div class="contact-card"><div class="c-label">Istanbul Grill (Halal)</div><div class="c-val">Near Disney Springs</div><div class="c-note">Top-rated halal restaurant in the Orlando area. Great for an evening out.</div></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<footer>
+  <strong>Orlando Family Adventure · April 1–10, 2026</strong><br>
+  Walt Disney World · Universal Orlando · Epic Universe · Grand Floridian Tea · Four Seasons
+</footer>
+
+<script>
+  function toggleDay(btn) {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!expanded));
+    const body = btn.closest('.day-item').querySelector('.day-body');
+    body.classList.toggle('open', !expanded);
+  }
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+  }
+  // Close menu when clicking outside
+  document.addEventListener('click', function(e) {
+    const menu = document.getElementById('mobileMenu');
+    const nav = document.querySelector('nav');
+    if (menu.classList.contains('open') && !nav.contains(e.target)) {
+      menu.classList.remove('open');
+    }
+  });
+  // Auto-open today's day if within trip dates (optional nice-to-have)
+  const today = new Date();
+  const tripStart = new Date('2026-04-01');
+  const tripEnd = new Date('2026-04-10');
+  if (today >= tripStart && today <= tripEnd) {
+    const dayOfTrip = Math.floor((today - tripStart) / 86400000);
+    const dayItems = document.querySelectorAll('.day-item');
+    if (dayItems[dayOfTrip]) {
+      const btn = dayItems[dayOfTrip].querySelector('.day-header');
+      if (btn) { toggleDay(btn); dayItems[dayOfTrip].scrollIntoView({behavior:'smooth',block:'center'}); }
+    }
+  }
+</script>
+</body>
+</html>
